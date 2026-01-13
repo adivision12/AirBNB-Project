@@ -21,10 +21,15 @@ const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 
 const dbUrl=process.env.ATLASDB_URL;
-main().catch(err => console.log(err));
+main();
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(dbUrl).then(()=>{
+    console.log("MONGO CONNECTION OPEN!!!");
+    }).catch(err=>{
+        console.log("MONGO CONNECTION ERROR!!!!");
+        console.log(err);
+    });
 
 }
 
